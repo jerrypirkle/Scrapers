@@ -1,0 +1,291 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8">
+  <title>D6 REUP Character Builder</title>
+  <meta name="description" content="D6 Star Wars REUP Character Builder">
+  <meta name="author" content="pirkle">
+</head>
+
+<body>
+  <div class="bc">
+    <div class="floater">
+      <button class="button" id="create" onclick="create()">CREATE</button>
+      <button class="button" id="edit" onclick="unhide()" style="display: none;">EDIT</button>
+      <button class="button" id="save" onclick="saveName();tableToJson(); save()" style="display: none;">SAVE</button>
+
+    </div>
+ </div>
+<div class="center">
+    <table id="stats">
+      <caption><p>D6 Star Wars Character Builder</p></caption>
+      <tr>
+        <td>POINTS REMAINING</td>
+        <td><p id="points" type="number">36</p></td>
+      </tr>
+      <tr>
+        <td>DEXTERITY</td>
+          <td><input type="number" id="dext" value="1" min="1" max="5" onchange="dicecounter()"> D+</td>
+          <td><input type="number" id="dextm" value="0" min="0" max="3" onchange="dicecounter()"></td>
+        </tr>
+      <tr>
+        <td>KNOWLEDGE</td>
+          <td><input type="number" id="know" value="1" min="1" max="5" onchange="dicecounter()"> D+</td>
+          <td><input type="number" id="knowm" value="0" min="0" max="3" onchange="dicecounter()"></td>
+      </tr>
+      <tr>
+        <td>MECHANICAL</td>
+          <td><input type="number" id="mech" value="1" min="1" max="5" onchange="dicecounter()"> D+</td>
+          <td><input type="number" id="mechm" value="0" min="0" max="3" onchange="dicecounter()"></td>
+      </tr>
+      <tr>
+        <td>PERCEPTION</td>
+          <td><input type="number" id="perc" value="1" min="1" max="5" onchange="dicecounter()"> D+</td>
+          <td><input type="number" id="percm" value="0" min="0" max="3" onchange="dicecounter()"></td>
+      </tr>
+      <tr>
+        <td>STRENGTH</td>
+          <td><input type="number" id="stre" value="1" min="1" max="5" onchange="dicecounter()"> D+</td>
+          <td><input type="number" id="strem" value="0" min="0" max="3" onchange="dicecounter()"></td>
+      </tr>
+      <tr>
+        <td>TECHNICAL</td>
+          <td><input type="number" id="tech" value="1" min="1" max="5" onchange="dicecounter()"> D+</td>
+          <td><input type="number" id="techm" value="0" min="0" max="3" onchange="dicecounter()"></td>
+      </tr>
+    </table>
+</div>
+
+  <div class="center">
+  <br>
+  <table id="skills">
+    <caption><p>Skill Dice Remaining</p><p id="skilldice" type="number">7</p></caption>
+
+    <tr><td>DEXTERITY</td></tr>
+      <tr><td class="skills">Archaic Guns</td><td><input class="sbox" type="checkbox" id="ArchaicGuns"name="ArchaicGuns" value="Archaic Guns" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="ArchaicGuns2"name="ArchaicGuns2" value="Archaic Guns" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Blaster</td><td><input class="sbox" type="checkbox" id="Blaster"name="Blaster" value="Blaster" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="Blaster2"name="Blaster2" value="Blaster" onchange="checkr()"></td> </tr>
+
+      <tr><td class="skills">Blaster Artillery</td><td><input class="sbox" type="checkbox" id="BlasterArtillery"name="BlasterArtillery" value="Blaster Artillery" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="BlasterArtillery2"name="BlasterArtillery2" value="Blaster Artillery" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Bowcasters</td><td><input class="sbox" type="checkbox" id="Bowcasters"name="Bowcasters" value="Bowcasters" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="Bowcasters2"name="Bowcasters2" value="Bowcasters" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Bows</td><td><input class="sbox" type="checkbox" id="Bows"name="Bows" value="Bows" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="Bows2"name="Bows2" value="Bows" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Brawling Parry</td><td><input class="sbox" type="checkbox" id="BrawlingParry"name="BrawlingParry" value="Brawling Parry" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="BrawlingParry2"name="BrawlingParry2" value="Brawling Parry" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Dodge</td><td><input class="sbox" type="checkbox" id="Dodge"name="Dodge" value="Dodge" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="Dodge2"name="Dodge2" value="Dodge" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Firearm</td><td><input class="sbox" type="checkbox" id="Firearm"name="Firearm" value="Firearm" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="Firearm2"name="Firearm2" value="Firearm" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Grenade</td><td><input class="sbox" type="checkbox" id="Grenade"name="Grenade" value="Grenade" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="Grenade2"name="Grenade2" value="Grenade" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Lightsabers</td><td><input class="sbox" type="checkbox" id="Lightsabers"name="Lightsabers" value="Lightsabers" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="Lightsabers2"name="Lightsabers2" value="Lightsabers" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Melee Combat</td><td><input class="sbox" type="checkbox" id="MeleeCombat"name="MeleeCombat" value="Melee Combat" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="MeleeCombat2"name="MeleeCombat2" value="Melee Combat" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Melee Parry</td><td><input class="sbox" type="checkbox" id="MeleeParry"name="MeleeParry" value="Melee Parry" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="MeleeParry2"name="MeleeParry2" value="Melee Parry" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Missile Weapon</td><td><input class="sbox" type="checkbox" id="MissileWeapon"name="MissileWeapon" value="Missile Weapon" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="MissileWeapon2"name="MissileWeapon2" value="Missile Weapon" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Pick Pocket</td><td><input class="sbox" type="checkbox" id="PickPocket"name="PickPocket" value="Pick Pocket" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="PickPocket2"name="PickPocket2" value="Pick Pocket" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Running</td><td><input class="sbox" type="checkbox" id="Running"name="Running" value="Running" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="Running2"name="Running2" value="Running" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Thrown Weapon</td><td><input class="sbox" type="checkbox" id="ThrownWeapon"name="ThrownWeapon" value="Thrown Weapon" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="ThrownWeapon2"name="ThrownWeapon2" value="Thrown Weapon" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Vehicle Blasters</td><td><input class="sbox" type="checkbox" id="VehicleBlasters"name="VehicleBlasters" value="Vehicle Blasters" onchange="checkr()"></td><td><input class="sbox" type="checkbox" id="VehicleBlasters2"name="VehicleBlasters2" value="Vehicle Blasters" onchange="checkr()"></td></tr>
+      <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+
+    <tr><td>KNOWLEDGE</td></tr>
+      <tr><td class="skills">Alien Species</td><td><input class="sbox"type="checkbox" id="AlienSpecies"name="AlienSpecies" value="Alien Species" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="AlienSpecies2"name="AlienSpecies2" value="Alien Species" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Bureaucracy</td><td><input class="sbox"type="checkbox" id="Bureaucracy"name="Bureaucracy" value="Bureaucracy" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Bureaucracy2"name="Bureaucracy2" value="Bureaucracy" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Business</td><td><input class="sbox"type="checkbox" id="Business"name="Business" value="Business" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Business2"name="Business2" value="Business" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Cultures</td><td><input class="sbox"type="checkbox" id="Cultures"name="Cultures" value="Cultures" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Cultures2"name="Cultures2" value="Cultures" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Intimidation</td><td><input class="sbox"type="checkbox" id="Intimidation"name="Intimidation" value="Intimidation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Intimidation2"name="Intimidation2" value="Intimidation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Languages</td><td><input class="sbox"type="checkbox" id="Languages"name="Languages" value="Languages" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Languages2"name="Languages2" value="Languages" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Law Enforcement</td><td><input class="sbox"type="checkbox" id="LawEnforcement"name="LawEnforcement" value="Law Enforcement" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="LawEnforcement2"name="LawEnforcement2" value="Law Enforcement" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Planetary Systems</td><td><input class="sbox"type="checkbox" id="PlanetarySystems"name="PlanetarySystems" value="Planetary Systems" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="PlanetarySystems2"name="PlanetarySystems2" value="Planetary Systems" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Scholar</td><td><input class="sbox"type="checkbox" id="Scholar"name="Scholar" value="Scholar" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Scholar2"name="Scholar2" value="Scholar" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Streetwise</td><td><input class="sbox"type="checkbox" id="Streetwise"name="Streetwise" value="Streetwise" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Streetwise2"name="Streetwise2" value="Streetwise" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Survival</td><td><input class="sbox"type="checkbox" id="Survival"name="Survival" value="Survival" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Survival2"name="Survival2" value="Survival" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Tactics</td><td><input class="sbox"type="checkbox" id="Tactics"name="Tactics" value="Tactics" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Tactics2"name="Tactics2" value="Tactics" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Value</td><td><input class="sbox"type="checkbox" id="Value"name="Value" value="Value" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Value2"name="Value2" value="Value" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Willpower</td><td><input class="sbox"type="checkbox" id="Willpower"name="Willpower" value="Willpower" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Willpower2"name="Willpower2" value="Willpower" onchange="checkr()"></td></tr>
+
+      <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+
+    <tr><td>MECHANICAL</td></tr>
+      <tr><td class="skills">Archaic Starship Piloting</td><td><input class="sbox"type="checkbox" id="ArchaicStarshipPiloting"name="ArchaicStarshipPiloting" value="Archaic Starship Piloting" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="ArchaicStarshipPiloting2"name="ArchaicStarshipPiloting2" value="Archaic Starship Piloting" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Astrogation</td><td><input class="sbox"type="checkbox" id="Astrogation"name="Astrogation" value="Astrogation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Astrogation2"name="Astrogation2" value="Astrogation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Beast Riding</td><td><input class="sbox"type="checkbox" id="BeastRiding"name="BeastRiding" value="Beast Riding" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="BeastRiding2"name="BeastRiding2" value="Beast Riding" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Capital Ship Gunnery</td><td><input class="sbox"type="checkbox" id="CapitalShipGunnery"name="CapitalShipGunnery" value="Capital Ship Gunnery" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="CapitalShipGunnery2"name="CapitalShipGunnery2" value="Capital Ship Gunnery" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Capital Ship Piloting</td><td><input class="sbox"type="checkbox" id="CapitalShipPiloting"name="CapitalShipPiloting" value="Capital Ship Piloting" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="CapitalShipPiloting2"name="CapitalShipPiloting2" value="Capital Ship Piloting" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Capital Ship Shields</td><td><input class="sbox"type="checkbox" id="CapitalShipShields"name="CapitalShipShields" value="Capital Ship Shields" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="CapitalShipShields2"name="CapitalShipShields2" value="Capital Ship Shields" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Communications</td><td><input class="sbox"type="checkbox" id="Communications"name="Communications" value="Communications" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Communications2"name="Communications2" value="Communications" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Ground Vehicle Operation</td><td><input class="sbox"type="checkbox" id="GroundVehicleOperation"name="GroundVehicleOperation" value="Ground Vehicle Operation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="GroundVehicleOperation2"name="GroundVehicleOperation2" value="Ground Vehicle Operation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Hover Vehicle Operation</td><td><input class="sbox"type="checkbox" id="HoverVehicleOperation"name="HoverVehicleOperation" value="Hover Vehicle Operation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="HoverVehicleOperation2"name="HoverVehicleOperation2" value="Hover Vehicle Operation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Jet Pack Operation</td><td><input class="sbox"type="checkbox" id="JetPackOperation"name="JetPackOperation" value="Jet Pack Operation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="JetPackOperation2"name="JetPackOperation2" value="Jet Pack Operation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Powersuit Operation</td><td><input class="sbox"type="checkbox" id="PowersuitOperation"name="PowersuitOperation" value="Powersuit Operation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="PowersuitOperation2"name="PowersuitOperation2" value="Powersuit Operation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Repulsorlift Operation</td><td><input class="sbox"type="checkbox" id="RepulsorliftOperation"name="RepulsorliftOperation" value="Repulsorlift Operation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="RepulsorliftOperation2"name="RepulsorliftOperation2" value="Repulsorlift Operation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Rocket Pack Operation</td><td><input class="sbox"type="checkbox" id="RocketPackOperation"name="RocketPackOperation" value="Rocket Pack Operation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="RocketPackOperation2"name="RocketPackOperation2" value="Rocket Pack Operation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Sensors</td><td><input class="sbox"type="checkbox" id="Sensors"name="Sensors" value="Sensors" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Sensors2"name="Sensors2" value="Sensors" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Space Transports</td><td><input class="sbox"type="checkbox" id="SpaceTransports"name="SpaceTransports" value="Space Transports" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="SpaceTransports2"name="SpaceTransports2" value="Space Transports" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Starfighter Piloting</td><td><input class="sbox"type="checkbox" id="StarfighterPiloting"name="StarfighterPiloting" value="Starfighter Piloting" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="StarfighterPiloting2"name="StarfighterPiloting2" value="Starfighter Piloting" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Starship Gunnery</td><td><input class="sbox"type="checkbox" id="StarshipGunnery"name="StarshipGunnery" value="Starship Gunnery" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="StarshipGunnery2"name="StarshipGunnery2" value="Starship Gunnery" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Starship shields</td><td><input class="sbox"type="checkbox" id="Starshipshields"name="Starshipshields" value="Starship shields" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Starshipshields2"name="Starshipshields2" value="Starship shields" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Swoop Operation</td><td><input class="sbox"type="checkbox" id="SwoopOperation"name="SwoopOperation" value="Swoop Operation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="SwoopOperation2"name="SwoopOperation2" value="Swoop Operation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Walker Operation</td><td><input class="sbox"type="checkbox" id="WalkerOperation"name="WalkerOperation" value="Walker Operation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="WalkerOperation2"name="WalkerOperation2" value="Walker Operation" onchange="checkr()"></td></tr>
+
+      <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+
+    <tr><td>PERCEPTION</td></tr>
+      <tr><td class="skills">Bargain</td><td><input class="sbox"type="checkbox" id="Bargain"name="Bargain" value="Bargain" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Bargain2"name="Bargain2" value="Bargain" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Command</td><td><input class="sbox"type="checkbox" id="Command"name="Command" value="Command" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Command2"name="Command2" value="Command" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Con</td><td><input class="sbox"type="checkbox" id="Con"name="Con" value="Con" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Con2"name="Con2" value="Con" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Forgery</td><td><input class="sbox"type="checkbox" id="Forgery"name="Forgery" value="Forgery" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Forgery2"name="Forgery2" value="Forgery" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Gambling</td><td><input class="sbox"type="checkbox" id="Gambling"name="Gambling" value="Gambling" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Gambling2"name="Gambling2" value="Gambling" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Hide</td><td><input class="sbox"type="checkbox" id="Hide"name="Hide" value="Hide" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Hide2"name="Hide2" value="Hide" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Investigation</td><td><input class="sbox"type="checkbox" id="Investigation"name="Investigation" value="Investigation" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Investigation2"name="Investigation2" value="Investigation" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Persuasion</td><td><input class="sbox"type="checkbox" id="Persuasion"name="Persuasion" value="Persuasion" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Persuasion2"name="Persuasion2" value="Persuasion" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Search</td><td><input class="sbox"type="checkbox" id="Search"name="Search" value="Search" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Search2"name="Search2" value="Search" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Sneak</td><td><input class="sbox"type="checkbox" id="Sneak"name="Sneak" value="Sneak" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Sneak2"name="Sneak2" value="Sneak" onchange="checkr()"></td></tr>
+
+      <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+
+    <tr><td>STRENGTH</td></tr>
+      <tr><td class="skills">Brawling</td><td><input class="sbox"type="checkbox" id="Brawling"name="Brawling" value="Brawling" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Brawling2"name="Brawling2" value="Brawling" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Climbing/Jumping</td><td><input class="sbox"type="checkbox" id="ClimbingJumping"name="ClimbingJumping" value="Climbing/Jumping" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="ClimbingJumping2"name="ClimbingJumping2" value="Climbing/Jumping" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Lifting</td><td><input class="sbox"type="checkbox" id="Lifting"name="Lifting" value="Lifting" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Lifting2"name="Lifting2" value="Lifting" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Stamina</td><td><input class="sbox"type="checkbox" id="Stamina"name="Stamina" value="Stamina" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Stamina2"name="Stamina2" value="Stamina" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Swimming</td><td><input class="sbox"type="checkbox" id="Swimming"name="Swimming" value="Swimming" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Swimming2"name="Swimming2" value="Swimming" onchange="checkr()"></td></tr>
+
+      <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+
+    <tr><td>TECHNICAL</td></tr>
+      <tr><td class="skills">Armor Repair</td><td><input class="sbox"type="checkbox" id="ArmorRepair"name="ArmorRepair" value="Armor Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="ArmorRepair2"name="ArmorRepair2" value="Armor Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Blaster Repair</td><td><input class="sbox"type="checkbox" id="BlasterRepair"name="BlasterRepair" value="Blaster Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="BlasterRepair2"name="BlasterRepair2" value="Blaster Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Capital Ship Repair</td><td><input class="sbox"type="checkbox" id="CapitalShipRepair"name="CapitalShipRepair" value="Capital Ship Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="CapitalShipRepair2"name="CapitalShipRepair2" value="Capital Ship
+        Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Capital Ship Weapon Repair</td><td><input class="sbox"type="checkbox" id="CapitalShipWeaponRepair"name="CapitalShipWeaponRepair" value="Capital Ship Weapon Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="CapitalShipWeaponRepair2"name="CapitalShipWeaponRepair2" value="Capital Ship Weapon Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Computer Programming/Repair</td><td><input class="sbox"type="checkbox" id="ComputerProgrammingRepair"name="ComputerProgrammingRepair" value="Computer Programming/Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="ComputerProgrammingRepair2"name="ComputerProgrammingRepair2" value="Computer Programming/Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Demolitions</td><td><input class="sbox"type="checkbox" id="Demolitions"name="Demolitions" value="Demolitions" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Demolitions2"name="Demolitions2" value="Demolitions" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Droid Programming</td><td><input class="sbox"type="checkbox" id="DroidProgramming"name="DroidProgramming" value="Droid Programming" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="DroidProgramming2"name="DroidProgramming2" value="Droid Programming" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Droid Repair</td><td><input class="sbox"type="checkbox" id="DroidRepair"name="DroidRepair" value="Droid Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="DroidRepair2"name="DroidRepair2" value="Droid Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">First Aid</td><td><input class="sbox"type="checkbox" id="FirstAid"name="FirstAid" value="First Aid" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="FirstAid2"name="FirstAid2" value="First Aid" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Ground Vehicle Repair</td><td><input class="sbox"type="checkbox" id="GroundVehicleRepair"name="GroundVehicleRepair" value="Ground Vehicle Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="GroundVehicleRepair2"name="GroundVehicleRepair2" value="Ground Vehicle Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Medicine</td><td><input class="sbox"type="checkbox" id="Medicine"name="Medicine" value="Medicine" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Medicine2"name="Medicine2" value="Medicine" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Repulsorlift Repair</td><td><input class="sbox"type="checkbox" id="RepulsorliftRepair"name="RepulsorliftRepair" value="Repulsorlift Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="RepulsorliftRepair2"name="RepulsorliftRepair2" value="Repulsorlift Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Security</td><td><input class="sbox"type="checkbox" id="Security"name="Security" value="Security" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="Security2"name="Security2" value="Security" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Space Transports Repair</td><td><input class="sbox"type="checkbox" id="SpaceTransportsRepair"name="SpaceTransportsRepair" value="Space Transports Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="SpaceTransportsRepair2"name="SpaceTransportsRepair2" value="Space Transports Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Starfighter Repair</td><td><input class="sbox"type="checkbox" id="StarfighterRepair"name="StarfighterRepair" value="Starfighter Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="StarfighterRepair2"name="StarfighterRepair2" value="Starfighter Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Starship Weapon Repair</td><td><input class="sbox"type="checkbox" id="StarshipWeaponRepair"name="StarshipWeaponRepair" value="Starship Weapon Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="StarshipWeaponRepair2"name="StarshipWeaponRepair2" value="Starship Weapon Repair" onchange="checkr()"></td></tr>
+
+      <tr><td class="skills">Walker Repair</td><td><input class="sbox"type="checkbox" id="WalkerRepair" name="WalkerRepair" value="Walker Repair" onchange="checkr()"></td><td><input class="sbox"type="checkbox" id="WalkerRepair2" name="WalkerRepair2" value="Walker Repair" onchange="checkr()"></td></tr>
+
+      <tr class="blank_row"><td colspan="3"></td></tr>
+  </table>
+
+</div>
+
+
+<div class="center">
+    <table id="charsheet" style="display: none;">
+      <caption><p>Character Sheet</p></caption>
+        <tr style="display: none;"><th>table_key</th><th>table_value</th><tr> //
+        <tr><td>Name: </td><td><input type="text" id="charname" value="Han Solo"></input></td></tr>
+        <tr><td>DEXTERITY</td><td class="outD" id="dexD"></td></tr>
+        <tr><td id="dexS" class="skills"></td></tr><tr class="blank_row"><td colspan="3"></td></tr>
+        <tr><td>KNOWLEDGE</td><td class="outD" id="knowD"></td></tr>
+        <tr><td id="knowS" class="skills"></td></tr><tr class="blank_row"><td colspan="3"></td></tr>
+        <tr><td>MECHANICAL</td><td class="outD" id="mechD"></td></tr>
+        <tr><td id="mechS" class="skills"></td></tr><tr class="blank_row"><td colspan="3"></td></tr>
+        <tr><td>PERCEPTION</td><td class="outD" id="percD"></td></tr>
+        <tr><td id="percS" class="skills"></td></tr><tr class="blank_row"><td colspan="3"></td></tr>
+        <tr><td>STRENGTH</td><td class="outD" id="streD"></td></tr>
+        <tr><td id="streS" class="skills"></td></tr><tr class="blank_row"><td colspan="3"></td></tr>
+        <tr><td>TECHNICAL</td><td class="outD" id="techD"></td></tr>
+        <tr><td id="techS" class="skills"></td></tr><tr class="blank_row"><td colspan="3"></td></tr>
+    </table>
+
+</div>
+
+<!-- This is some magic if it works: https://html2canvas.hertzen.com/ -->
+
+  <script src="scripts.js"></script>
+  <!-- <script src="jquery-3.4.1.js"></script> -->
+
+</body>
+</html>

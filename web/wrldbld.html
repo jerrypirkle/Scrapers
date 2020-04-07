@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <title>Star Wars D6 World Builder</title>
+    <meta name="author" content="pirkle">
+  </head>
+
+  <body>
+    <p>D6 Star Wars World Builder</p>
+    <button class="button" type="button" onclick="writer()">Search Hex</button>
+    <button class="button" type="button" onclick="getPlanet()">Generate Planet</button>
+    <button class="button" type="button" onclick="clearAll()">Clear</button>
+
+    <table id="stats">
+        <tr><td id="OccupiedHex"></td></tr>
+        <tr><td id="TypeofStar"></td></tr>
+        <tr><td id="PlanetType"></td></tr>
+        <tr><td id="YearLength"></td></tr>
+        <tr><td id="DayLength"></td></tr>
+        <tr><td id="Gravity"></td></tr>
+        <tr><td id="Terrain"></td></tr>
+        <tr><td id="Atmosphere"></td></tr>
+        <tr><td id="Hydrosphere"></td></tr>
+        <tr><td id="Temperature"></td></tr>
+        <tr><td id="PlanetFunction"></td></tr>
+        <tr><td id="Government"></td></tr>
+        <tr><td id="Starport"></td></tr>
+        <tr><td id="TechLevel"></td></tr>
+
+
+    </table><br>
+
+    <button class="button" type="button" onclick="hyperspace()">Calculate Hyperspace Lanes</button>
+    <p id="HyperSpace"></p>
+
+    <script>
+      function d66() {
+        // roll d66
+        var roll = (Math.ceil(Math.random() * 6) * 10) + (Math.ceil(Math.random() * 6));
+        return roll
+        }
+
+      function d6x2() {
+        // roll 2d6
+        var roll = Math.ceil(Math.random() * 6) + Math.ceil(Math.random() * 6);
+        return roll
+        }
+
+      function d6() {
+        // roll 1d6
+        var roll = Math.ceil(Math.random() * 6);
+        console.log(roll)
+        return roll
+      }
+
+      function iterator(object, roll) {
+        // checks the values for the dice roll value match
+        // roll = d66() // get d66 dice roll
+        for (const property in object) {
+          tempArr = object[property] //array of values
+          var found = tempArr.find(function(element) {
+            // if you find the dice roll in the values list, push the key to the Output list
+            if (element == roll) {
+              Output.push(`${property}`)
+            };});};
+
+        ;}
+
+      function yearvar() {
+        roll = Math.floor(Math.random() * 1100) + 265;
+        Output.push(String(roll))
+      }
+
+      function dayvar() {
+        roll = Math.floor(Math.random() * 600) + 12;
+        Output.push(String(roll))
+      }
+
+      function clearAll (){
+        document.getElementById("OccupiedHex").innerHTML = "";
+        document.getElementById("Government").innerHTML = "";
+        document.getElementById("Terrain").innerHTML = "";
+        document.getElementById("PlanetFunction").innerHTML = "";
+        document.getElementById("TypeofStar").innerHTML = "";
+        document.getElementById("PlanetType").innerHTML = "";
+        document.getElementById("Temperature").innerHTML = "";
+        document.getElementById("Gravity").innerHTML = "";
+        document.getElementById("Atmosphere").innerHTML = "";
+        document.getElementById("Starport").innerHTML = "";
+        document.getElementById("TechLevel").innerHTML = "";
+        document.getElementById("Hydrosphere").innerHTML = "";
+        document.getElementById("YearLength").innerHTML = "";
+        document.getElementById("DayLength").innerHTML = "";
+        document.getElementById("HyperSpace").innerHTML = "";
+        document.getElementById("OccupiedHex").innerHTML = "";
+      }
+
+      function writer() {
+        // runs supporting functions and writes results
+        clearAll ()
+        iterator(OccupiedHex, d66())
+        if (Output[0] == "Empty"){
+          // displays results only if the Hex isn't empty
+          document.getElementById("OccupiedHex").innerHTML = "Empty Hex";
+          Output = [];
+          return;
+        }
+        Output = [] // clear output so that you can spam the button without reloading
+
+        getPlanet() // gets planet details
+
+
+      }
+
+      function hyperspace() {
+        iterator(HyperSpace, d6())
+        document.getElementById("HyperSpace").innerHTML = "HyperSpace Lanes: " + Output[0] + ", Travel Time: " + String(d6x2()) + " hours  per hex between connecting systems";
+        Output = []
+      }
+
+      function getPlanet() {
+        iterator(Government, d66())
+        document.getElementById("Government").innerHTML = "Government: " + Output[0];
+        Output = []
+
+        iterator(Terrain, d66())
+        document.getElementById("Terrain").innerHTML = "Terrain: " + Output[0];
+        Output = []
+
+        iterator(PlanetFunction, d66())
+        document.getElementById("PlanetFunction").innerHTML = "Planet Function: " + Output[0];
+        Output = []
+
+        iterator(TypeofStar, d66())
+        document.getElementById("TypeofStar").innerHTML = "Type of Star: " + Output[0];
+        Output = []
+
+        iterator(PlanetType, d6x2())
+        document.getElementById("PlanetType").innerHTML = "Planet Type: " + Output[0];
+        Output = []
+
+        iterator(Temperature, d6x2())
+        document.getElementById("Temperature").innerHTML = "Temperature: " + Output[0];
+        Output = []
+
+        iterator(Gravity, d6x2())
+        document.getElementById("Gravity").innerHTML = "Gravity: " + Output[0];
+        Output = []
+
+        iterator(Atmosphere, d6x2())
+        document.getElementById("Atmosphere").innerHTML = "Atmosphere: " + Output[0];
+        Output = []
+
+        iterator(Starport, d6x2())
+        document.getElementById("Starport").innerHTML = "Starport: " + Output[0];
+        Output = []
+
+        iterator(TechLevel, d6x2())
+        document.getElementById("TechLevel").innerHTML = "Tech Level and Population: " + Output[0];
+        Output = []
+
+        iterator(Hydrosphere, d6x2())
+        document.getElementById("Hydrosphere").innerHTML = "Hydrosphere: " + Output[0];
+        Output = []
+
+        yearvar()
+        document.getElementById("YearLength").innerHTML = "Year Length: " + Output[0] + " days";
+        Output = []
+
+        dayvar()
+        document.getElementById("DayLength").innerHTML = "Day Length: " + Output[0] + " hours";
+        Output = []
+      }
+
+      // Variables
+      Output = []
+
+      Government = {
+          "Alliance/Federation":[11],
+          "Anarchy":[12],
+          "Competing States":[13, 14, 15, 16],
+          "Corporate Owned (+3 Starport, +2 Tech Level)":[21,22],
+          "Dictatorship":[23,24],
+          "Family":[25],
+          "Feudalism":[26,27,28,29,30,31],
+          "Guild/Professional Organization":[32],
+          "Imperial Governor":[33,34,35,36,37,38,39,40,41,42],
+          "Military":[43,44,45],
+          "Monarchy":[46,47,48,49,50,51,52],
+          "Organized Crime":[53],
+          "Rebel Alliance/New Republic":[54],
+          "Participating Democracy":[55],
+          "Representative Democracy":[56],
+          "Ruler By Selection/Rite":[61],
+          "Theocracy":[62],
+          "Tribal":[63,64,65,66]
+          }
+
+      PlanetType = {
+          "Terrestrial":[2,3,4,5,6,7,8,9],
+          "Satellite (Normally Gas Giant)":[10],
+          "Asteroid Belt (-2 Population; Incompatible: Agriculture, Homeworld Planet Function)":[11],
+          "Artificial (-2 Population)":[12]
+        }
+
+      Temperature = {
+        "Searing":[2],
+        "Hot":[3,4],
+        "Temperate":[5,6,7,8,9],
+        "Cool":[10,11],
+        "Frigid":[12],
+      }
+
+      Gravity = {
+        "Light (+2 Atmosphere)":[2,3,4],
+        "Standard":[5,6,7,8,9,10,11],
+        "Heavy (+2 Atmosphere)":[12]
+      }
+
+      Terrain = {
+        "Barren (Compatible: Arid, Dry Hydrosphere; Incompatible: Moist, Saturated; -2 Population, +3 Atmosphere)":[11],
+        "Cave (+2 Atmosphere, -2 Population)":[12,13],
+        "Crater Field (Incompatible: Thick Atmosphere)":[14],
+        "Desert (Compatible: Arid, Dry Hydrosphere; Incompatible: Moist, Saturated Hydrosphere)":[15,16, 17, 18],
+        "Forest (Compatible: Moderate, Moist Hydrosphere; Hot, Temperate, Cool Temperature; Incompatible: Arid Hydrosphere; Frigid, Searing Temperature)":[19,20,21,22,23,24],
+        "Glacier (Compatible: Moist, Saturated Hydrosphere; Cool, Frigid Temperature; Incompatible: Arid, Dry Hydrosphere; Searing, Hot, Temperate Temperature)":[25,26,27,28],
+        "Jungle (Compatible: Moderate, Moist, Saturated Hydrosphere; Searing, Hot, Temperate Temperature; Incompatible: Arid, Dry Hydrosphere; Cool, Frigid Temperature)":[29,30,31,32],
+        "Mountain (Incompatible: Saturated Hydrosphere)":[33,34],
+        "Ocean (Compatible: Moderate, Moist, Saturated Hydrosphere; Incompatible: Arid, Dry Hydrosphere; -1 Population)":[35,36,37,38,39,40,41],
+        "Plain (Compatible: Dry, Moderate, Moist Hydrosphere; Hot, Temperate, Cool Temperature; Incompatible: Arid, Saturated Hydrosphere; Searing, Frigid Temperature)":[42,43,44],
+        "Plateau (Incompatible: Saturated Hydrosphere)":[45,46,47],
+        "Urban (+1 Population)":[48,49,50,51,52],
+        "Wetlands (Incompatible: Arid, Dry Hydrosphere; Frigid, Searing Temperature)":[53,54,55,56,57,58,59,60,61],
+        "Volcanic (Incompatible: Type I Atmosphere; -2 Population; +3 Atmosphere)":[62,63],
+        "Special Terrain":[64,65,66]
+      }
+
+      Atmosphere = {
+        "Type I (Breathable)":[2,3,4,5,6,7,8,9],
+        "Type II (Breath Mask Suggested)":[10],
+        "Type III (Breath Mask Required)":[11],
+        "Type IV (Environment Suit Required)":[12]
+      }
+
+      Starport = {
+        "Landing Field":[2],
+        "Limited Services":[3,4,5],
+        "Standard Class":[6,7,8],
+        "Stellar Class":[9,10,11],
+        "Imperial Class":[12]
+      }
+
+      TechLevel = {
+        "Stone | < 2 Thousand Inhabitants":[2],
+        "Feudal | < 2 Million Inhabitants":[3],
+        "Industrial | < 2 Billion Inhabitants":[4],
+        "Atomic | < 4 Billion Inhabitants":[5],
+        "Information | < 6 Billion Inhabitants":[6,7],
+        "Space | < 8 Billion Inhabitants":[8,9,10,11],
+        "Space | Multi-system Capitol < 32 Billion Inhabitants":[12]
+      }
+
+      Hydrosphere = {
+        "Arid":[2],
+        "Dry":[3,4],
+        "Moderate":[5,6,7,8,9],
+        "Moist":[10,11],
+        "Saturated":[12]
+      }
+
+      PlanetFunction = {
+        "Abandoned Colony":[11],
+        "Academic (+1 Starport, +1 Tech Level)":[12],
+        "Administrative/Government (+1 Starport, +1 Tech Level)":[13],
+        "Agriculture (Incompatible: Asteroid Belt, Artificial Planet Type, Barren Terrain)":[14,15,16,17,18,19,20,21],
+        "Colony":[22],
+        "Disaster (-3 Spaceport, -2 Tech Level, +3 Atmosphere)":[23],
+        "Entertainment":[24],
+        "Exploration (-2 Starport, -2 Tech Level)":[25,26,27,28],
+        "Hidden Base":[29],
+        "Homeworld":[30,31,32,33],
+        "Luxury Goods":[34,60,61],
+        "Manufacturing/Processing: LowTech, Mid Tech, High Tech (Mid Tech: +2 Starport, +2 Tech Level; High Tech: +3 Starport, +4 Tech Level)":[35,36,37,38,39,40,41],
+        "Military (+3 Starport, +2 Tech Level)":[42],
+        "Mining (+2 Starport, +1 Tech Level)":[43,44,45,46],
+        "Natural Resources":[51,52,53,54,55],
+        "Research":[56,57,58,59],
+        "Service (+1 Starport, +2 Tech Level)":[60,61],
+        "Subsistence":[62,63],
+        "Trade (+3 Starport, +2 Tech Level)":[64,65,66]
+      }
+
+      TypeofStar = {
+        "F-Giant (yellow white/white)":[11,17],
+        "G-Giant (yellow/yellowish white)":[12,18],
+        "K-Giant (orange/pale yellow orange)":[13,19],
+        "M-Giant (red/light orange red)":[14,57],
+        "O (blue/blue)":[15,58],
+        "B (blue white/deep blue white)":[16,59],
+        "A (white/blue white)":[20,21],
+        "F (yellow white/white)":[22],
+        "G (yellow/yellowish white)":[23,24],
+        "K (orange/pale yellow orange)":[25,26,27,28,29,30,31],
+        "M (red/light orange red)":[32,33,34,35,36,37,38,39,40,41,42],
+        "B-Dwarf (blue white/deep blue white)":[43,44,45],
+        "A-Dwarf (white/blue white)":[46,47,48,49,50,51,52],
+        "F-Dwarf (yellow white/white)":[53,54],
+        "G-Dwarf (yellow/yellowish white)":[55,56],
+        "K-Dwarf (orange/pale yellow orange)":[60,61],
+        "Binary Star":[62],
+        "Neutron":[63],
+        "Black Hole":[64],
+        "Nebula":[65],
+        "Nova":[66]
+      }
+
+      OccupiedHex = {
+        "Notable world in this hex":[11,12,13],
+        "Empty":[14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,]
+      }
+
+      HyperSpace = {
+        "Terminus (System has a single known hyperspace lane connecting to it, which ends at that system)":[1],
+        "Route (System is a midpoint on a known hyperspace lane; 2 lanes total)":[2,3,4],
+        "Junction (Route System that is also a Terminus for 2 more route)":[5],
+        "Junction (Route System that is also a Terminus for one more route)":[6]
+      }
+
+    </script>
+  </body>
+
+</html>
